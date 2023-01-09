@@ -1,0 +1,30 @@
+{% load socialaccount %}
+{% providers_media_js %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>login</title>
+</head>
+<body>
+<hi>LOGIN</hi>
+<form method="POST">
+    {% csrf_token %}
+
+    <input type="text" name="username"placeholder="username"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    <button type="login" class="btn btn-primary">login</button><br>
+
+    <div class="signin">
+        Don't have an account?<a href="{% url 'signin'%}">Sign Up</a>
+    </div>
+
+    <div class="">
+      <a href="{% url 'otp'%}">Login through email?</a>
+    </div>
+
+</form>
+</body>
+</html>
