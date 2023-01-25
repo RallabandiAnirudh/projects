@@ -3,13 +3,15 @@ from .form import signinform
 from django.http import HttpResponse
 from django.contrib.auth import authenticate,login
 from django.core.mail import send_mail
+from .models import Profile
+from django.contrib import messages
 import math, random
 
 from django.views.generic import ListView
 # Create your views here.
 
 def signinview(request):
-    if request.method=="post":
+    if request.method=="POST":
         form = signinform(request.POST)
         if form.is_valid():
             form.save
@@ -18,37 +20,26 @@ def signinview(request):
         form = signinform()
         return render(request,"signin.html",{"form":form})
 
-def login(request):
+def Login(request):
     if request.method=="POST":
         username = request.POST['username']
         password = request.POST['password']
 
         user = authenticate(username=username,password=password)
         if user is not None:
-            login(request,user)
-            return redirect('page')
-    else:
-        return render(request,"login.html",{})
+            Login(request, user)
+            return redirect("home")
+        else:
+            return redirect("login")
+
+    return render(request, "login.html")
 
 
 def home(request):
-    post=Post.objects.all()
+    post=Profile.objects.all()
 
     return render(request,"base.html",{'post':post})
 
-
-def page(request):
-    if request.method=='POST':
-        title=request.POST['title']
-        image = request.FILES.get('image')
-        likes=request.POST['likes']
-        caption= request.POST.get('caption')
-
-
-        k=Post(title=title,image=image,likes=likes, caption= caption)
-        k.save()
-
-    return render(request,"page.html")
 
 
 def otp(request):

@@ -24,8 +24,8 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("signin/",views.signinview,name="signin"),
-    path("",views.login,name="login"),
-    path("page/",views.page,name="page"),
+    path("",views.Login,name="login"),
+    path("home/", views.home, name="home"),
     path("account/",include("allauth.urls")),
     path("otp/", views.otp, name="otp"),
     path("send_otp/", views.send_otp, name="send otp"),
@@ -34,3 +34,5 @@ urlpatterns = [
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
